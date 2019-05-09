@@ -1,0 +1,145 @@
+<html lang="en">
+
+<head>
+	<!-- KIC 25/08/2016 16:23 -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>SAMPLE FORMS</title>
+	<link href="https://karmagroup.com/karmaclubmerge/internal/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://karmagroup.com/karmaclubmerge/internal/css/style.css" rel="stylesheet" type="text/css">
+	<link href="https://karmagroup.com/karmaclubmerge/internal/css/loaders.css" rel="stylesheet" type="text/css">
+
+	<link href="inboxscript/jquery-ui.css" rel="stylesheet" type="text/css">
+	<style>
+		.loader {
+			display: none;
+		}
+
+		.ball-pulse>div {
+			background-color: #FF6B6B;
+		}
+
+		span.required {
+			margin: 0px 5px 0px 5px;
+			font-size: 9px;
+		}
+
+		div.message-validator {
+			background: transparent url('inboxscript/msg_arrow.gif') no-repeat scroll left center;
+			padding-left: 7px;
+		}
+
+		div.error-validator {
+			background-color: #F3E6E6;
+			border-color: #924949;
+			border-style: solid solid solid solid;
+			border-width: 2px;
+			padding: 5px;
+		}
+
+		#austate {
+			display: none;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="xy" id="top">
+		<div class="confirmprocess">
+
+		</div>
+	</div>
+	<div class="col-lg-12">
+		<div class="container">
+			<div class="row">
+				<div class="wrapform">
+					<img src="https://karmagroup.com/wp-content/themes/karma/imgs/karma-logo-new.png" class="imglogo">
+					<h1 class="text-center">PHONE VALIDATIONS</h1><br>
+					<p>
+						<ul>
+							<li>METHOD: GET</li>
+							<li>ACTION URL:
+								https://karmagroup-d66ca.appspot.com/kg-api/phone-validation/&lt;phone-number&gt;</li>
+							<li>RETURN VALUE (JSON FORMAT): {
+								"isValid": true | false
+								}</li>
+							<li>SAMPLE VALID PHONE NUMBERS: 6281916143333, 6281916222333</li>
+							<li>SAMPLE INVALID PHONE NUMBERS: 621234567890, 621122334455</li>
+							<li>SAMPLE REQUEST<br>
+								<strong>Request URL:</strong>
+								https://karmagroup-d66ca.appspot.com/kg-api/phone-validation/6281916143333<br>
+
+								<strong>Request Method:</strong> GET<br>
+								<strong>Response:</strong> <code>{"isValid":true}</code></li>
+						</ul>
+					</p>
+					<form id="form-257" action="#" method="post" novalidate>
+						<div class="col-lg-12">
+							<div class="form-group">
+								<label id="msgpromocode">Phone Number</label>
+								<input type="text" class="form-control" placeholder="" id="phone" name="phone">
+							</div>
+						</div>
+
+						<div class="col-lg-12">
+							<p><strong>&nbsp;</strong></p>
+						</div>
+						<button id="btn-submit" onclick="getNumber()">SUBMIT</button>
+						<div class="loader">
+							<div class="loader-inner ball-pulse">
+								<div></div>
+								<div></div>
+								<div></div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript"
+		src="https://karmagroup.com/karmaclubmerge/internal/inboxscript/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+
+	<script type="text/javascript"
+		src="https://karmagroup.com/karmaclubmerge/internal/inboxscript/jquery-ui-1.10.0.custom.min.js"></script>
+	<script type="text/javascript"
+		src="https://karmagroup.com/karmaclubmerge/internal/inboxscript/jquery.validate.min.js"></script>
+	<script type="text/javascript"
+		src="https://karmagroup.com/karmaclubmerge/internal/inboxscript/additional-methods.min.js"></script>
+
+	<script>
+
+		/* PUT YOUR CODE HERE */
+		window.addEventListener("load", function () {
+			function sendData() {
+				var xhr = new XMLHttpRequest();
+				var fd = new FormData(form);
+				var phone = parseInt(document.getElementById("phone").value);
+
+				xhr.addEventListener("load", function (event) {
+					alert(event.target.responseText);
+				});
+
+				xhr.addEventListener("error", function (event) {
+					alert("Whopppss!")
+				});
+
+				xhr.open("GET", `https://karmagroup-d66ca.appspot.com/kg-api/phone-validation/${phone}`);
+				xhr.send(fd);
+			}
+
+			var form = document.getElementById("form-257");
+			form.addEventListener("submit", function (event) {
+				event.preventDefault();
+				sendData();
+			});
+		});
+
+	</script>
+
+</body>
+
+</html>
